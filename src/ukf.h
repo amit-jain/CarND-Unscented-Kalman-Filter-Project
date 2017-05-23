@@ -32,7 +32,11 @@ public:
   ///* predicted sigma points matrix
   MatrixXd Xsig_pred_;
 
-  ///* time when the state is true, in us
+  MatrixXd R_laser_;
+
+  MatrixXd R_radar_;
+
+    ///* time when the state is true, in us
   long long time_us_;
 
   ///* Process noise standard deviation longitudinal acceleration in m/s^2
@@ -74,6 +78,9 @@ public:
   ///* the current NIS for laser
   double NIS_laser_;
 
+  ///* augment signal points dimension
+  int n_sig_;
+
   /**
    * Constructor
    */
@@ -108,6 +115,9 @@ public:
    * @param meas_package The measurement at k+1
    */
   void UpdateRadar(MeasurementPackage meas_package);
+
+  void UpdateUKF(MeasurementPackage meas_package, MatrixXd Z_sig, const int n_z);
+
 };
 
 #endif /* UKF_H */
